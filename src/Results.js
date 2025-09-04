@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Result(props) {
   if (!props.results || !props.results.word) {
-    return null; // don’t render anything until we have results
+    return null; // don’t render anything until we have  results
   }
 
   return (
