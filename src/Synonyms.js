@@ -2,12 +2,13 @@
 import React from "react";
 
 export default function Synonyms({ synonyms }) {
-  if (!synonyms || synonyms.length === 0) return null;
+  const list = Array.isArray(synonyms) ? [...new Set(synonyms)] : [];
+  if (list.length === 0) return null;
 
   return (
     <ul className="Synonyms">
-      {synonyms.map((synonym, index) => (
-        <li key={index}>{synonym}</li>
+      {list.map((s, i) => (
+        <li key={i}>{s}</li>
       ))}
     </ul>
   );
