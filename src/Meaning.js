@@ -2,30 +2,40 @@ import React from "react";
 import Synonyms from "./Synonyms";
 
 export default function Meaning({ meaning }) {
+  const defs = Array.isArray(meaning?.definitions) ? meaning.definitions : [];
+
   return (
     <div className="Meaning">
-      <h3>{meaning.partOfSpeech}</h3>
+      <h3>{meaning?.partOfSpeech}</h3>
 
-      {meaning.definitions?.map((definition, index) => (
-        <div key={index}>
-          <p>
-            <strong>Definition:</strong> {definition.definition}
-            {definition.example && (
+      {defs.map((definition, index) => {
+        const merged = [
+          ...(meaning?.synonyms || []),
+          ...(definition?.synonyms || []),
+        ];
+        const unique = [...new Set(merged)];
+
+        return (
+          <div key={index}>
+            <p>
+              <strong>Definition:</strong> {definition.definition}
+              {definition.example && (
+                <>
+                  <br />
+                  <strong>Example:</strong> <em>{definition.example}</em>
+                </>
+              )}
+            </p>
+
+            {unique.length > 0 && (
               <>
-                <br />
-                <strong>Example:</strong> <em>{definition.example}</em>
+                <strong>Synonyms</strong>
+                <Synonyms synonyms={unique} />
               </>
             )}
-          </p>
-
-          {definition.synonyms?.length > 0 && (
-            <>
-              <strong>Synonyms</strong>
-              <Synonyms synonyms={definition.synonyms} />
-            </>
-          )}
-        </div>
-      ))}
+          </div>
+        );
+      })}
     </div>
   );
 }

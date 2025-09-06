@@ -1,4 +1,3 @@
-// src/Synonyms.js
 import React from "react";
 
 export default function Synonyms({ synonyms }) {
@@ -7,9 +6,8 @@ export default function Synonyms({ synonyms }) {
 
   return (
     <ul className="Synonyms">
-      {list.map((s, i) => (
-        <li key={i}>{s}</li>
-      ))}
+      {list.map((s, i) => <li key={i}>{s}</li>)}
     </ul>
   );
 }
+
