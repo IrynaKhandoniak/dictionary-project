@@ -1,24 +1,21 @@
 import React from "react";
+import Meaning from "./Meaning";
 
-export default function Result(props) {
-  if (!props.results || !props.results.word) {
-    return null; // don’t render anything until we have  results
+export default function Results(props) {
+  if (props.results) {
+    return (
+      <div className="Results">
+        <h2>{props.results.word}</h2>
+        {props.results.meanings.map(function (meaning, index) {
+          return (
+            <div key={index}>
+              <Meaning meaning={meaning} />
+            </div>
+          );
+        })}
+      </div>
+    );
+  } else {
+    return null;
   }
-
-  return (
-    <div className="Results">
-      <h2>{props.results.word}</h2>
-
-      {props.results.meanings && props.results.meanings.map((meaning, index) => (
-        <div key={index}>
-          <strong>{meaning.partOfSpeech}</strong>
-          <ul>
-            {meaning.definitions.map((def, i) => (
-              <li key={i}>{def.definition}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  );
 }
